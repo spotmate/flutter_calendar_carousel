@@ -8,8 +8,9 @@ const TextStyle defaultPrevDaysTextStyle = const TextStyle(
 	color: Colors.grey,
 	fontSize: 14.0,
 );
+// 1週間表示の時、来月の日付も黒にするためにカスタム
 const TextStyle defaultNextDaysTextStyle = const TextStyle(
-	color: Colors.grey,
+	color: Colors.black,
 	fontSize: 14.0,
 );
 const TextStyle defaultDaysTextStyle = const TextStyle(
