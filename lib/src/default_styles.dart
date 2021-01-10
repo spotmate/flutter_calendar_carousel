@@ -25,20 +25,24 @@ const TextStyle defaultSelectedDayTextStyle = const TextStyle(
 	color: Colors.white,
 	fontSize: 14.0,
 );
+// デフォルト：deepOrange Spotmate: 黒
 const TextStyle defaultWeekdayTextStyle = const TextStyle(
-	color: Colors.deepOrange,
+	color: Colors.black,
 	fontSize: 14.0,
 );
+// デフォルト：pinkAccent Spotmate: 黒
 const TextStyle defaultWeekendTextStyle = const TextStyle(
-	color: Colors.pinkAccent,
+	color: Colors.black,
 	fontSize: 14.0,
 );
+// デフォルト：black38 Spotmate: 黒
 const TextStyle defaultInactiveDaysTextStyle = const TextStyle(
-	color: Colors.black38,
+	color: Colors.black,
 	fontSize: 14.0,
 );
+// デフォルト：pinkAccent.withOpacity(0.6) Spotmate: 黒
 final TextStyle defaultInactiveWeekendTextStyle = TextStyle(
-	color: Colors.pinkAccent.withOpacity(0.6),
+	color: Colors.black,
 	fontSize: 14.0,
 );
 final Widget defaultMarkedDateWidget = Container(
