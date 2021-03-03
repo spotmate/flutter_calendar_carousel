@@ -217,14 +217,6 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
 
   @override
   CalendarState<T> createState() => CalendarState<T>();
-
-  // stateを取得するために使用
-  GlobalKey<CalendarState> _stateKey = GlobalKey();
-
-  // 画面のスワイプに対応するためのカスタマイズ
-  void swipe(DateTime date) {
-    ((this.key as GlobalKey).currentState as CalendarState).swipe(date);
-  }
 }
 
 enum WeekdayFormat {
