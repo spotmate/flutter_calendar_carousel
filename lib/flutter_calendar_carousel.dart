@@ -744,7 +744,8 @@ class CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>>
   Iterable<DateTime> _daysInRange(DateTime start, DateTime end) {
     var offset = start.timeZoneOffset;
 
-    return List<int>.generate(end.difference(start).inDays, (i) => i + 1)
+    // end.difference(start).inDaysに+1しないと週の最後の日が漏れる
+    return List<int>.generate(end.difference(start).inDays + 1, (i) => i + 1)
       .map((int i) {
       var d = start.add(Duration(days: i - 1));
 
