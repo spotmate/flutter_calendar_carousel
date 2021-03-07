@@ -604,9 +604,10 @@ class CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>>
     double screenWidth = MediaQuery.of(context).size.width;
     List<DateTime> weekDays = _weeks[slideIndex];
 
-    weekDays = weekDays
-        .map((weekDay) => weekDay.add(Duration(days: firstDayOfWeek)))
-        .toList();
+    // _firstDayOfWeekと_lastDayOfWeekの計算を正しくすると不要な演算のため削除
+    // weekDays = weekDays
+    //     .map((weekDay) => weekDay.add(Duration(days: firstDayOfWeek)))
+    //     .toList();
 
     return AnimatedBuilder(
         animation: _controller,
@@ -723,12 +724,16 @@ class CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>>
 
   DateTime _firstDayOfWeek(DateTime date) {
     var day = _createUTCMiddayDateTime(date);
-    return day.subtract(new Duration(days: date.weekday % 7));
+    if (day.weekday >= firstDayOfWeek) {
+      day.subtract(new Duration(days: day.weekday - firstDayOfWeek));
+    } else {
+      day.subtract(new Duration(days: 7 + day.weekday - firstDayOfWeek));
+    }
   }
 
   DateTime _lastDayOfWeek(DateTime date) {
     var day = _createUTCMiddayDateTime(date);
-    return day.add(new Duration(days: 7 - day.weekday % 7));
+    return day.add(new Duration(days: (7 - day.weekday + firstDayOfWeek - 1) % 7));
   }
 
   DateTime _createUTCMiddayDateTime(DateTime date) {
