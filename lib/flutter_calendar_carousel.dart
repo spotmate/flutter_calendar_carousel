@@ -724,7 +724,7 @@ class CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>>
 
   DateTime _firstDayOfWeek(DateTime date) {
     var day = _createUTCMiddayDateTime(date);
-    if (day.weekday >= firstDayOfWeek) {
+    if (day.weekday >= widget.firstDayOfWeek) {
       return day.subtract(new Duration(days: day.weekday - widget.firstDayOfWeek));
     } else {
       return day.subtract(new Duration(days: 7 + day.weekday - widget.firstDayOfWeek));
