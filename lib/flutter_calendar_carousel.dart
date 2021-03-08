@@ -134,6 +134,10 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
   final bool showIconBehindDayText;
   final ScrollPhysics pageScrollPhysics;
   final bool shouldShowTransform;
+  // 土曜日（日付上部の月火水木金土日）の色
+  final TextStyle saturdaytextStyle;
+  // 日曜日（日付上部の月火水木金土日）の色
+  final TextStyle sundaytextStyle;
 
   CalendarCarousel({
     Key key,
@@ -213,6 +217,8 @@ class CalendarCarousel<T extends EventInterface> extends StatefulWidget {
     this.showIconBehindDayText = false,
     this.pageScrollPhysics = const ScrollPhysics(),
     this.shouldShowTransform = true,
+    this.saturdaytextStyle,
+    this.sundaytextStyle,
   }): super(key: key);
 
   @override
@@ -349,6 +355,8 @@ class CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>>
             weekdayBackgroundColor: widget.weekDayBackgroundColor,
             weekdayTextStyle: widget.weekdayTextStyle,
             localeDate: _localeDate,
+            saturdaytextStyle: widget.saturdaytextStyle,
+            sundaytextStyle: widget.sundaytextStyle,
           ),
           Expanded(
               child: PageView.builder(

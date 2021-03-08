@@ -14,7 +14,10 @@ class WeekdayRow extends StatelessWidget {
       @required this.weekdayPadding,
       @required this.weekdayBackgroundColor,
       @required this.weekdayTextStyle,
-      @required this.localeDate});
+      @required this.localeDate,
+      this.saturdaytextStyle,
+      this.sundaytextStyle,
+      });
 
   final WeekdayBuilder customWeekdayBuilder;
   final bool showWeekdays;
@@ -25,6 +28,8 @@ class WeekdayRow extends StatelessWidget {
   final TextStyle weekdayTextStyle;
   final DateFormat localeDate;
   final int firstDayOfWeek;
+  final TextStyle saturdaytextStyle;
+  final TextStyle sundaytextStyle;
 
   Widget _weekdayContainer(int weekday, String weekDayName) {
     return customWeekdayBuilder != null ? customWeekdayBuilder(weekday, weekDayName) :
@@ -42,7 +47,7 @@ class WeekdayRow extends StatelessWidget {
               child: Text(
                 weekDayName,
                 semanticsLabel: weekDayName,
-                style: weekdayTextStyle,
+                style: _getTextStyle(weekDayName),
               ),
             ),
           ),
@@ -129,4 +134,13 @@ class WeekdayRow extends StatelessWidget {
           children: _renderWeekDays(),
         )
       : Container();
+
+  TextStyle _getTextStyle(String weekDayName) {
+    if (weekDayName.contains('土')) {
+      return saturdaytextStyle ?? weekdayTextStyle;
+    } else if (weekDayName.contains('日')) {
+      return sundaytextStyle ?? weekdayTextStyle;
+    }
+    return weekdayTextStyle;
+  }
 }
