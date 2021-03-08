@@ -725,16 +725,20 @@ class CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>>
 
   DateTime _firstDayOfWeek(DateTime date) {
     var day = _createUTCMiddayDateTime(date);
-    if (day.weekday >= firstDayOfWeek) {
-      return day.subtract(new Duration(days: day.weekday - firstDayOfWeek));
+    // 日曜はfirstDayOfWeekが0になるが、DateTime.weekdayは7のため、7に設定する
+    final weekValue = firstDayOfWeek > 0 ? firstDayOfWeek : 7;
+    if (day.weekday >= weekValue) {
+      return day.subtract(new Duration(days: day.weekday - weekValue));
     } else {
-      return day.subtract(new Duration(days: 7 + day.weekday - firstDayOfWeek));
+      return day.subtract(new Duration(days: 7 + day.weekday - weekValue));
     }
   }
 
   DateTime _lastDayOfWeek(DateTime date) {
     var day = _createUTCMiddayDateTime(date);
-    return day.add(new Duration(days: (7 - day.weekday + firstDayOfWeek - 1) % 7));
+    // 日曜はfirstDayOfWeekが0になるが、DateTime.weekdayは7のため、7に設定する
+    final weekValue = firstDayOfWeek > 0 ? firstDayOfWeek : 7;
+    return day.add(new Duration(days: (7 - day.weekday + weekValue - 1) % 7));
   }
 
   DateTime _createUTCMiddayDateTime(DateTime date) {
