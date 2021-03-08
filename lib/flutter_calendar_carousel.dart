@@ -258,6 +258,14 @@ class CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>>
     if (widget.selectedDateTime != null)
       _selectedDate = widget.selectedDateTime;
 
+    _localeDate = DateFormat.yMMM(widget.locale);
+
+    // _init()の中でfirstDayOfWeekを参照するため、_initの前で値を設定する
+    if (widget.firstDayOfWeek == null)
+      firstDayOfWeek = (_localeDate.dateSymbols.FIRSTDAYOFWEEK + 1) % 7;
+    else
+      firstDayOfWeek = widget.firstDayOfWeek;
+
     _init();
 
     /// setup pageController
@@ -268,13 +276,6 @@ class CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>>
 
       /// width percentage
     );
-
-    _localeDate = DateFormat.yMMM(widget.locale);
-
-    if (widget.firstDayOfWeek == null)
-      firstDayOfWeek = (_localeDate.dateSymbols.FIRSTDAYOFWEEK + 1) % 7;
-    else
-      firstDayOfWeek = widget.firstDayOfWeek;
 
     _setDate();
   }
@@ -724,16 +725,16 @@ class CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>>
 
   DateTime _firstDayOfWeek(DateTime date) {
     var day = _createUTCMiddayDateTime(date);
-    if (day.weekday >= widget.firstDayOfWeek) {
-      return day.subtract(new Duration(days: day.weekday - widget.firstDayOfWeek));
+    if (day.weekday >= firstDayOfWeek) {
+      return day.subtract(new Duration(days: day.weekday - firstDayOfWeek));
     } else {
-      return day.subtract(new Duration(days: 7 + day.weekday - widget.firstDayOfWeek));
+      return day.subtract(new Duration(days: 7 + day.weekday - firstDayOfWeek));
     }
   }
 
   DateTime _lastDayOfWeek(DateTime date) {
     var day = _createUTCMiddayDateTime(date);
-    return day.add(new Duration(days: (7 - day.weekday + widget.firstDayOfWeek - 1) % 7));
+    return day.add(new Duration(days: (7 - day.weekday + firstDayOfWeek - 1) % 7));
   }
 
   DateTime _createUTCMiddayDateTime(DateTime date) {
