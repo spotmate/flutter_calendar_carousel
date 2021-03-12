@@ -1094,7 +1094,7 @@ class CalendarState<T extends EventInterface> extends State<CalendarCarousel<T>>
 
   // 1週間単位でスワイプするためのカスタマイズ
   // isNextWeek = trueなら1週間後に移動
-  void swipeWeek(bool isNextWeek) {
+  void swipeWeek({bool isNextWeek}) {
     final page = isNextWeek ? _pageNum + 1 : _pageNum - 1;
     _setDate(page);
   }
